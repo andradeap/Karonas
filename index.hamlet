@@ -9,10 +9,9 @@
     <a href=@{CriarCaronaR}>Ofereca uma carona
 
 <content>
-<h2> Caronas cadastradas:
-$forall Entity cid carona <- listaC
-    <p> #{caronaOrigem carona} <br>
-               
+
+
+
 <footer>
     <p>© Karonas
     <a href=@{LoginR}>Entre

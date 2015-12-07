@@ -21,11 +21,11 @@ widgetForm x enctype widget y val = do
      $(whamletFile "forms.hamlet")
      toWidget $(luciusFile "css.lucius")
 
-widgetGeral :: Route Karonas -> Enctype -> Widget -> Text -> Text -> Widget
-widgetGeral x enctype widget y val = do
-     msg <- getMessage
-     $(whamletFile "template.hamlet")
-     toWidget $(luciusFile "css.lucius")     
+widgetHome :: Widget
+widgetHome = $(whamletFile "index.hamlet")
+
+widgetCss :: Widget
+widgetCss = toWidget $(luciusFile "css.lucius")
 
 formLogin :: Form Usuario
 formLogin = renderDivs $ Usuario <$>
@@ -51,13 +51,8 @@ formCarona = renderDivs $ Carona <$>
 
 
 getHomeR :: Handler Html
-getHomeR = do
-     usr <- lookupSession "_ID"
-     defaultLayout [whamlet|
-        $maybe m <- usr
-            <h2> Welcome #{m}
-     
-     |]
+getHomeR = defaultLayout (widgetHome >> widgetCss)
+
 
 getLoginR ::Handler Html
 getLoginR = do
@@ -102,7 +97,7 @@ getCaronasR = do
                  <h1> Caronas cadastradas:
                  $forall Entity cid carona <- listaC
                      <a href=@{CaronaR cid}> #{caronaOrigem carona} <br>
-             |]
+             |] 
 
 getCaronaR :: CaronaId -> Handler Html
 getCaronaR cid = do

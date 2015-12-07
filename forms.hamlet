@@ -1,3 +1,15 @@
+<body>
+<header>
+   <h1>KARONAS
+   <p>Compartilhe, economize e ajude o planeta!
+
+<nav>
+    <a href=@{HomeR}>Inicio
+    <a href=@{CaronasR}>Pegue uma Carona
+    <a href=@{CriarCaronaR}>Ofereca uma carona
+
+            
+<content>
 <h2>
     #{y}
     $maybe mm <- msg
@@ -5,3 +17,9 @@
     <form method=post action=@{x} enctype=#{enctype}>
         ^{widget}
         <input type="submit" value=#{val}>
+
+<footer>
+    <p>© Karonas
+    <a href=@{LoginR}>Entre
+    <a href=@{CadastrarR}>Cadastre-se
+    <a href=@{SairR}>Sair
