@@ -1,0 +1,3 @@
+<h1> Caronas cadastradas:
+$forall Entity cid carona <- listaC
+    <p> #{caronaOrigem carona} <br>
