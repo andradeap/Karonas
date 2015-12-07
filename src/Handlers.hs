@@ -19,8 +19,13 @@ widgetForm :: Route Karonas -> Enctype -> Widget -> Text -> Text -> Widget
 widgetForm x enctype widget y val = do
      msg <- getMessage
      $(whamletFile "forms.hamlet")
-     $(whamletFile "template.hamlet")
      toWidget $(luciusFile "css.lucius")
+
+widgetGeral :: Route Karonas -> Enctype -> Widget -> Text -> Text -> Widget
+widgetGeral x enctype widget y val = do
+     msg <- getMessage
+     $(whamletFile "template.hamlet")
+     toWidget $(luciusFile "css.lucius")     
 
 formLogin :: Form Usuario
 formLogin = renderDivs $ Usuario <$>
@@ -38,7 +43,7 @@ formUsuario = renderDivs $ Usuario <$>
 
 formCarona :: Form Carona
 formCarona = renderDivs $ Carona <$>
-             areq textField "Origem" Nothing <*>
+             areq textField"Origem" Nothing <*>
              areq textField "Destino" Nothing <*>
              areq doubleField "Valor" Nothing <*>
              areq intField "Numero de Passageiros" Nothing <*>
@@ -50,13 +55,14 @@ getHomeR = do
      usr <- lookupSession "_ID"
      defaultLayout [whamlet|
         $maybe m <- usr
-            <h1> Welcome #{m}
+            <h2> Welcome #{m}
+     
      |]
 
 getLoginR ::Handler Html
 getLoginR = do
         (wid,enc) <- generateFormPost formLogin
-        defaultLayout $ widgetForm LoginR enc wid "" "Login"
+        defaultLayout $ widgetForm LoginR enc wid "Entre" "Login"
 
 postLoginR :: Handler Html
 postLoginR = do
@@ -69,14 +75,14 @@ postLoginR = do
                     setSession "_ID" (usuarioLogin usr)
                     redirect HomeR
                 Nothing -> do
-                    setMessage $ [shamlet| Invalid user |]
+                    setMessage $ [shamlet| Usuario invalido! Tente mais uma vez ou cadastre-se. |]
                     redirect LoginR
         _ -> redirect LoginR
 
 getCadastrarR :: Handler Html
 getCadastrarR = do
              (widget, enctype) <- generateFormPost formUsuario
-             defaultLayout $ widgetForm CadastrarR enctype widget "" "Cadastrar Usuario"
+             defaultLayout $ widgetForm CadastrarR enctype widget "Cadastre-se" "Cadastrar Usuario"
 
 postCadastrarR :: Handler Html
 postCadastrarR = do
@@ -121,9 +127,10 @@ postCriarCaronaR = do
                 case result of
                     FormSuccess carona -> (runDB $ insert carona) >> defaultLayout [whamlet|<h1> Carona criada|]
                     _ -> redirect CriarCaronaR
+  -- /addLocal AddLocalR GET POST
 
-getByeR :: Handler Html
-getByeR = do
+getSairR :: Handler Html
+getSairR = do
     deleteSession "_ID"
     defaultLayout [whamlet| BYE! |]
 

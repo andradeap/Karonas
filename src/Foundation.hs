@@ -28,6 +28,8 @@ Carona
    passageiros Int
    motorista Text
    deriving Show
+
+
 |]
 
 mkYesodData "Karonas" pRoutes

@@ -3,11 +3,16 @@
    <p>Compartilhe, economize e ajude o planeta!
 
 <nav>
-    <ul>
-    <li> <a href=@{HomeR} Home>
-    <li> <a href=@{CaronasR} Pegue Karona>
-    <li> <a href=@{CriarCaronaR} Ofereça Karona>
-    <li> <a href=@{LoginR} Entre>
-    <li> <a href=@{CadastrarR} Cadastra-se>
+    <a href=@{HomeR}>
+    <a href=@{CaronasR}>
+    <a href=@{CriarCaronaR}>
+    <a href=@{LoginR}>
+    <a href=@{CadastrarR}>
+            
+<content>
+    ^{widget}
+               
 
+<footer>
+    <p>© Karonas
 

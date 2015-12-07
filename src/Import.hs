@@ -10,5 +10,6 @@ pRoutes = [parseRoutes|
    /caronas CaronasR GET
    /carona/#CaronaId CaronaR GET
    /criarCarona CriarCaronaR GET POST
+   /sair SairR GET
 |]
 
